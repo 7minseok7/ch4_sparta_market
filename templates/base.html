@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <title>Document</title>
+    <style>
+        * {
+            font-family: "Pretendard";
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+
+        {% if request.user.is_authenticated %}
+
+            <h3>안녕하세요, {{ request.user.username }}님</h3>
+            <form action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="로그아웃"></input>
+            </form>
+
+            <a href="{% url 'accounts:update' %}">
+                <button>회원정보수정</button>
+            </a>
+
+            <form action="{% url 'accounts:delete' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="회원탈퇴"></input>
+            </form>
+
+        {% else %}
+
+            <a href="{% url 'accounts:login' %}">
+                <button>로그인</button>
+            </a>
+
+            <a href="{% url 'accounts:signup' %}">
+                <button>회원가입</button>
+            </a>
+        
+        {% endif %}
+
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    
+</body>
+</html>
