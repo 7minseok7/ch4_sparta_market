@@ -17,7 +17,7 @@ def login(request):
             # 로그인 처리를 한다. django에서는 이런 유저 인증, 쿠키 및 세션 처리 등등
             # 복잡한 과정을 함수 하나로 처리할 수 있도록 미리 구현해 두었음.
             auth_login(request, form.get_user())
-            next_url = request.GET.get("next") or 'index'
+            next_url = request.GET.get("next") or 'mainpages'
             return redirect(next_url)
 
     else:
@@ -32,7 +32,7 @@ def logout(request):
     # request를 까서 쿠키에 session id가 있으면 서버의 session 테이블에서 이를 지우고
     # 쿠키에서 session id도 지워주는 이 과정도 django 내부에 죄다 구현되어 있음.
     auth_logout(request)
-    return redirect("index")
+    return redirect("mainpages")
 
 @require_http_methods(["GET", "POST"])
 def signup(request):
@@ -41,7 +41,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect("index")
+            return redirect("mainpages")
     else:
         form = UserCreationForm()
     
@@ -56,7 +56,7 @@ def delete(request):
         # 즉, 아래와 같이 그냥 delete() 메서드로 직접 DB에서 지우는 게 가능하다는 것이다...
         request.user.delete()
         auth_logout(request)
-    return redirect("index")
+    return redirect("mainpages")
 
 @require_http_methods(["GET", "POST"])
 def update(request):
@@ -64,7 +64,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("index")
+            return redirect("mainpages")
 
     else:
         form = CustomUserChangeForm(instance=request.user)
@@ -82,7 +82,7 @@ def change_password(request):
             # 따라서 아래와 같이 하면 비밀번호 변경 후 나온 새로운 정보로 클라이언트와 다시 세션을 연결시킴.
             # 이렇게 하면 비밀번호 변경 후 로그아웃 되는 현상을 막을 수 있음.
             update_session_auth_hash(request, form.user)
-            return redirect("index")
+            return redirect("mainpages")
     else:
         form = PasswordChangeForm(request.user)
     context = {"form": form}
