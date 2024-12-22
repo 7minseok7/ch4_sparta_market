@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Article</h2>
+
+<form action="{% url 'boards:update' good.id %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">수정하기</button>
+</form>
+
+<br>
+<a href="{% url 'boards:good_detail' good.id %}">이전으로</a>
+
+{% endblock content %}

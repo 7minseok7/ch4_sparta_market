@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>New Article</h2>
+
+<!-- enctype="multipart/form-data" 속성을 지정하여 파일 처리가 가능한 폼으로 만든다. -->
+<form action="{% url 'boards:create' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">저장</button>
+</form>
+
+<br>
+<a href="{% url 'boards:boards' %}">목록으로 돌아가기</a>
+
+{% endblock content %}
