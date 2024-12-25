@@ -21,7 +21,7 @@
 
 {% for good in goods %}
 
-    <a href="{% url 'boards:goods_detail' good.id %}">
+    <a href="{% url 'boards:good_detail' good.id %}">
         <p>[{{ good.id }}] {{ good.title }}</p>
     </a>
 
