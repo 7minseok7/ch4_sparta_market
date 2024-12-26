@@ -12,3 +12,5 @@ class GoodsForm(forms.ModelForm):
 
         # 모든 속성을 이용한 폼을 만들 걱이므로 fields 속성에 "__all__" 을 준다.
         fields = "__all__"
+
+        exclude = ("author", "like_users",)

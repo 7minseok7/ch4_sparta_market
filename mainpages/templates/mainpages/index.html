@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>대충 환영한다는 말</p>
+    <h2>스파르타마켓에 오신 걸 환영합니다</h2>
+
+    <ul>
+        <li><a href="{% url "boards:boards" %}">물건 게시 목록으로 이동</a></li>
+
+    </ul>
 {% endblock content %}

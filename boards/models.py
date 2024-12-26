@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Goods(models.Model):
@@ -13,6 +14,16 @@ class Goods(models.Model):
 
     # 이미지 업로드 기능
     image = models.ImageField(upload_to="images/", blank=True)
+
+    # 게시글 작성자
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="goods"
+    )
+
+    # 좋아요 기능 관련 필드
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="like_goods"
+    )
 
     def __str__(self):
         return self.title
